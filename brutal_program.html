@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brutal Assault 2025 Timetable</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background */
+            color: #e2e8f0; /* Light text */
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .stage-header {
+            background-color: #2d3748; /* Darker grey for stage headers */
+            color: #cbd5e0;
+        }
+        .band-item {
+            border-bottom: 1px solid #4a5568; /* Subtle separator */
+        }
+        .band-item:last-child {
+            border-bottom: none;
+        }
+        .time {
+            color: #a0aec0; /* Lighter grey for time */
+            font-weight: 600;
+        }
+        .band-name {
+            color: #e2e8f0;
+            font-weight: 400;
+        }
+        .day-header {
+            background-color: #4299e1; /* Blue for day headers */
+            color: white;
+            font-weight: 700;
+        }
+        /* Custom styles for buttons */
+        .btn {
+            @apply px-6 py-3 rounded-full font-semibold text-lg shadow-lg transition-all duration-300 ease-in-out;
+        }
+        .btn-primary {
+            @apply bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50;
+        }
+        .btn-secondary {
+            @apply bg-gray-600 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-500 focus:ring-opacity-50;
+        }
+        .selected-band {
+            background-color: #4a5568; /* Highlight selected band */
+        }
+        .conflict {
+            background-color: #a02020; /* Red background for conflicts */
+        }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #2d3748;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .stage-emoji {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container mx-auto rounded-lg shadow-lg overflow-hidden bg-gray-800">
+        <header class="text-center py-6 bg-gray-900 rounded-t-lg">
+            <h1 class="text-4xl font-bold text-red-500 mb-2">BRUTAL ASSAULT 2025</h1>
+            <p class="text-xl text-gray-400">Josefov Fortress | Aug 6-9</p>
+        </header>
+
+        <div class="p-6 flex flex-col sm:flex-row justify-center items-center gap-4 bg-gray-700">
+            <button id="showMyTimetableBtn" class="btn btn-primary w-full sm:w-auto">Show My Timetable</button>
+            <button id="clearSelectionsBtn" class="btn btn-secondary w-full sm:w-auto">Clear All Selections</button>
+        </div>
+
+        <main id="timetable-container" class="p-6">
+            <!-- Timetable content will be generated here by JavaScript -->
+        </main>
+    </div>
+
+    <!-- Personalized Timetable Modal -->
+    <div id="myTimetableModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 class="text-3xl font-bold text-red-500 mb-4 text-center">My Personalized Timetable</h2>
+            <div id="personalizedTimetableContent" class="text-gray-200">
+                <!-- Personalized timetable will be loaded here -->
+            </div>
+            <p class="text-sm text-gray-400 mt-4 text-center">Bands highlighted in red indicate potential time conflicts.</p>
+        </div>
+    </div>
+
+    <script>
+        // Define the timetable data structure
+        const timetableData = {
+            "WED 6.8": {
+                "Obscure": [
+                    { time: "14:40", name: "MARKED AS AN ENEMY" },
+                    { time: "15:30", name: "FAUST" },
+                    { time: "16:20", name: "BLACKOUT IN HELL" },
+                    { time: "17:10", name: "CUTTHROAT FLESH" },
+                    { time: "18:00", name: "FUNERAL" },
+                    { time: "19:10", name: "BLACK CYN" },
+                    { time: "20:10", name: "CARNIVORE A.D." },
+                    { time: "21:10", name: "HAVOK" },
+                    { time: "22:00", name: "WARM UP" },
+                    { time: "22:50", name: "WARM UP" },
+                    { time: "23:40", name: "WARM UP" }
+                ],
+                "Sea Shepherd": [
+                    { time: "12:00", name: "BRUTALLY DECEASED" },
+                    { time: "12:35", name: "BLOOD RED THRONE" },
+                    { time: "13:10", name: "DARKEST HORIZON" },
+                    { time: "14:00", name: "CRYSTAL LAKE" },
+                    { time: "14:45", name: "IMPERIAL TRIUMPHANT" },
+                    { time: "15:35", name: "MOPL" },
+                    { time: "16:25", name: "DARK FUNERAL" },
+                    { time: "17:10", name: "THROWN" },
+                    { time: "18:00", name: "MISERY INDEX" },
+                    { time: "19:05", name: "STATIC-X" },
+                    { time: "20:00", name: "DYING FETUS" },
+                    { time: "21:00", name: "MEGADETH" },
+                    { time: "22:00", name: "RIVERS OF NIHIL" },
+                    { time: "22:50", name: "KERRY KING" },
+                    { time: "00:30", name: "ROTTING CHRIST" }
+                ],
+                "Marshall": [
+                    { time: "10:30", name: "MAMMOTH GRINDER" },
+                    { time: "11:05", name: "ZULU" },
+                    { time: "11:40", name: "GULCH" },
+                    { time: "12:20", name: "PSYCHOTIC WALTZ" },
+                    { time: "13:00", name: "CARCASS" },
+                    { time: "13:40", name: "HIGH PARASITE" },
+                    { time: "14:20", name: "MALEVOLENCE" },
+                    { time: "15:00", name: "NILE" },
+                    { time: "15:40", name: "GOJIRA" },
+                    { time: "16:45", name: "SUBLABAI KHAN TX" },
+                    { time: "17:35", name: "DECAPITATED" },
+                    { time: "18:25", name: "LANDMVRKS" },
+                    { time: "19:15", name: "LEPROUS" },
+                    { time: "20:05", name: "CULT OF LUNA" },
+                    { time: "21:50", name: "GOJIRA" },
+                    { time: "22:50", name: "MY DYING BRIDE" },
+                    { time: "00:30", name: "FEAR FACTORY" }
+                ],
+                "Octagon": [
+                    { time: "18:30", name: "FAUN FABLES" },
+                    { time: "19:20", name: "ANNA VON HAUSSWOLFF" },
+                    { time: "20:20", name: "NERA NERA" },
+                    { time: "21:20", name: "THE MERGING" },
+                    { time: "22:20", name: "TRASH BOAT" },
+                    { time: "23:20", name: "COMPUTERBOY SET" },
+                    { time: "00:20", name: "FAUNFABLES" }
+                ],
+                "KAL": [
+                    { time: "18:30", name: "FAUN FABLES" },
+                    { time: "19:20", name: "ANNA VON HAUSSWOLFF" },
+                    { time: "20:20", name: "NERA NERA" },
+                    { time: "21:20", name: "THE MERGING" },
+                    { time: "22:20", name: "TRASH BOAT" },
+                    { time: "23:20", name: "COMPUTERBOY SET" },
+                    { time: "00:20", name: "FAUNFABLES" }
+                ]
+            },
+            "THU 7.8": {
+                 "Obscure": [
+                    { time: "14:30", name: "SLEEPYTIME GORILLA MUSEUM" },
+                    { time: "15:20", name: "CONVERGE" },
+                    { time: "16:10", name: "TRIBULATION" },
+                    { time: "17:00", name: "RIVERS OF NIHIL" },
+                    { time: "17:50", name: "BLOOD RED THRONE" },
+                    { time: "18:40", name: "IMPERIAL TRIUMPHANT" },
+                    { time: "19:30", name: "MISERY INDEX" },
+                    { time: "20:20", name: "DYING FETUS" },
+                    { time: "21:10", name: "MEGADETH" },
+                    { time: "22:00", name: "RIVERS OF NIHIL" },
+                    { time: "22:50", name: "KERRY KING" },
+                    { time: "00:30", name: "ROTTING CHRIST" }
+                ],
+                "Sea Shepherd": [
+                    { time: "14:30", name: "ZEKE" },
+                    { time: "15:10", name: "WORMROT" },
+                    { time: "15:50", name: "REZN" },
+                    { time: "16:30", name: "BURST BEHIND RED" },
+                    { time: "17:10", name: "BETWEEN THE BURIED & ME" },
+                    { time: "17:50", name: "GATECREEPER" },
+                    { time: "18:30", name: "THE COVENANT" },
+                    { time: "19:10", name: "FIT FOR A KING" },
+                    { time: "19:50", name: "BEHEMOTH" },
+                    { time: "20:30", name: "FU MANCHU" },
+                    { time: "21:10", name: "CROWBAR" },
+                    { time: "21:50", name: "CULT OF LUNA" },
+                    { time: "22:30", name: "MY DYING BRIDE" },
+                    { time: "00:30", name: "FEAR FACTORY" }
+                ],
+                "Marshall": [
+                    { time: "10:30", name: "GRAPHIC NATURE" },
+                    { time: "11:05", name: "ANGELMAKER" },
+                    { time: "11:40", name: "SVALBARD" },
+                    { time: "12:20", name: "WITHIN DESTRUCTION" },
+                    { time: "13:00", name: "ABORTED" },
+                    { time: "13:50", name: "MNEMIC" },
+                    { time: "14:35", name: "THE HALO EFFECT" },
+                    { time: "15:20", name: "COUNTERPARTS" },
+                    { time: "16:05", name: "IMMOLATION" },
+                    { time: "16:55", name: "PIG DESTROYER" },
+                    { time: "17:45", name: "OVERKILL" },
+                    { time: "18:45", name: "OVERKILL" },
+                    { time: "19:40", name: "OVERKILL" },
+                    { time: "20:45", name: "OVERKILL" },
+                    { time: "22:00", name: "PARADISE LOST" },
+                    { time: "23:00", name: "DARK FUNERAL" },
+                    { time: "00:30", name: "CULT OF LUNA" }
+                ],
+                "Octagon": [
+                    { time: "19:00", name: "FAUN FABLES" },
+                    { time: "19:50", name: "ANNA VON HAUSSWOLFF" },
+                    { time: "20:50", name: "NERA NERA" },
+                    { time: "21:50", name: "THE MERGING" },
+                    { time: "22:50", name: "TRASH BOAT" },
+                    { time: "23:50", name: "COMPUTERBOY SET" },
+                    { time: "00:50", name: "FAUNFABLES" }
+                ],
+                "KAL": [
+                    { time: "18:30", name: "DUNKELBONT" },
+                    { time: "20:00", name: "MAI MAI MAI" },
+                    { time: "21:00", name: "MAI MAI MAI" },
+                    { time: "22:00", name: "MAI MAI MAI" },
+                    { time: "23:00", name: "MAI MAI MAI" },
+                    { time: "00:00", name: "MAI MAI MAI" },
+                    { time: "01:00", name: "MAI MAI MAI" },
+                    { time: "01:30", name: "EVIL DUST DJ SET" }
+                ]
+            },
+            "FRI 8.8": {
+                "Obscure": [
+                    { time: "14:30", name: "MONOLORD" },
+                    { time: "15:20", name: "CATTLE DECAPITATION" },
+                    { time: "16:10", name: "MANTAR" },
+                    { time: "17:00", name: "VADER" },
+                    { time: "17:50", name: "THE BLACK DAHLIA MURDER" },
+                    { time: "18:40", name: "DYING FETUS" },
+                    { time: "19:30", name: "MEGADETH" },
+                    { time: "20:20", name: "RIVERS OF NIHIL" },
+                    { time: "21:10", name: "KERRY KING" },
+                    { time: "22:00", name: "ROTTING CHRIST" },
+                    { time: "22:50", name: "THE HALO EFFECT" },
+                    { time: "00:30", name: "DARK FUNERAL" }
+                ],
+                "Sea Shepherd": [
+                    { time: "14:30", name: "THE CROWN" },
+                    { time: "15:10", name: "THE HALO EFFECT" },
+                    { time: "15:50", name: "ABORTED" },
+                    { time: "16:30", name: "MNEMIC" },
+                    { time: "17:10", name: "COUNTERPARTS" },
+                    { time: "17:50", name: "IMMOLATION" },
+                    { time: "18:30", name: "PIG DESTROYER" },
+                    { time: "19:10", name: "OVERKILL" },
+                    { time: "19:50", name: "OVERKILL" },
+                    { time: "20:30", name: "OVERKILL" },
+                    { time: "21:10", name: "OVERKILL" },
+                    { time: "21:50", name: "PARADISE LOST" },
+                    { time: "22:30", name: "DARK FUNERAL" },
+                    { time: "00:30", name: "CULT OF LUNA" }
+                ],
+                "Marshall": [
+                    { time: "10:30", name: "GRAPHIC NATURE" },
+                    { time: "11:05", name: "ANGELMAKER" },
+                    { time: "11:40", name: "SVALBARD" },
+                    { time: "12:20", name: "WITHIN DESTRUCTION" },
+                    { time: "13:00", name: "ABORTED" },
+                    { time: "13:50", name: "MNEMIC" },
+                    { time: "14:35", name: "THE HALO EFFECT" },
+                    { time: "15:20", name: "COUNTERPARTS" },
+                    { time: "16:05", name: "IMMOLATION" },
+                    { time: "16:55", name: "PIG DESTROYER" },
+                    { time: "17:45", name: "OVERKILL" },
+                    { time: "18:45", name: "OVERKILL" },
+                    { time: "19:40", name: "OVERKILL" },
+                    { time: "20:45", name: "OVERKILL" },
+                    { time: "22:00", name: "PARADISE LOST" },
+                    { time: "23:00", name: "DARK FUNERAL" },
+                    { time: "00:30", name: "CULT OF LUNA" }
+                ],
+                "Octagon": [
+                    { time: "18:30", name: "LIVE THE HORROR" },
+                    { time: "19:40", name: "MALIGNANCY" },
+                    { time: "21:00", name: "PYREXIA" },
+                    { time: "22:30", name: "REPLIGANT" }
+                ],
+                "KAL": [
+                    { time: "18:30", name: "LUGOLA" },
+                    { time: "20:10", name: "MORBID AXE" },
+                    { time: "21:00", name: "HACKEDEPICCIOTTO" },
+                    { time: "22:00", name: "VULVODYNIA" },
+                    { time: "00:00", name: "BLACKOUT" },
+                    { time: "01:00", name: "BHPL" },
+                    { time: "02:00", name: "MANUS DJ SET" }
+                ]
+            },
+            "SAT 9.8": {
+                "Obscure": [
+                    { time: "14:30", name: "HIDEOUS DIVINITY" },
+                    { time: "15:20", name: "VOMITORY" },
+                    { time: "16:10", name: "KING WOMAN" },
+                    { time: "17:00", name: "CATTLE DECAPITATION" },
+                    { time: "17:50", name: "VADER" },
+                    { time: "18:40", name: "DYING FETUS" },
+                    { time: "19:30", name: "MEGADETH" },
+                    { time: "20:20", name: "RIVERS OF NIHIL" },
+                    { time: "21:10", name: "KERRY KING" },
+                    { time: "22:00", name: "ROTTING CHRIST" },
+                    { time: "22:50", name: "THE HALO EFFECT" },
+                    { time: "00:30", name: "DARK FUNERAL" }
+                ],
+                "Sea Shepherd": [
+                    { time: "14:30", name: "THE CROWN" },
+                    { time: "15:10", name: "THE HALO EFFECT" },
+                    { time: "15:50", name: "ABORTED" },
+                    { time: "16:30", name: "MNEMIC" },
+                    { time: "17:10", name: "COUNTERPARTS" },
+                    { time: "17:50", name: "IMMOLATION" },
+                    { time: "18:30", name: "PIG DESTROYER" },
+                    { time: "19:10", name: "OVERKILL" },
+                    { time: "19:50", name: "OVERKILL" },
+                    { time: "20:30", name: "OVERKILL" },
+                    { time: "21:10", name: "OVERKILL" },
+                    { time: "21:50", name: "PARADISE LOST" },
+                    { time: "22:30", name: "DARK FUNERAL" },
+                    { time: "00:30", name: "CULT OF LUNA" }
+                ],
+                "Marshall": [
+                    { time: "10:30", name: "BESNA" },
+                    { time: "11:05", name: "CRYPTA" },
+                    { time: "11:40", name: "SVALBARD" },
+                    { time: "12:25", name: "TO THE GRAVE" },
+                    { time: "13:00", name: "ABORTED" },
+                    { time: "13:50", name: "EXHORDER" },
+                    { time: "14:35", name: "THE HALO EFFECT" },
+                    { time: "15:20", name: "ATTILA" },
+                    { time: "16:05", name: "IMMOLATION" },
+                    { time: "16:55", name: "UNLEASHED" },
+                    { time: "17:45", name: "HATEBREED" },
+                    { time: "18:45", name: "KATAKLYSM" },
+                    { time: "19:40", name: "SUFFOCATION" },
+                    { time: "20:45", name: "CARNIVOOL" },
+                    { time: "22:00", name: "SLIPKNOT" },
+                    { time: "23:00", name: "THE HALO EFFECT" },
+                    { time: "00:30", name: "DARK FUNERAL" }
+                ],
+                "Octagon": [
+                    { time: "14:30", name: "BESNA" },
+                    { time: "15:00", name: "CRYPTA" },
+                    { time: "15:30", name: "SVALBARD" },
+                    { time: "16:00", name: "TO THE GRAVE" },
+                    { time: "16:30", name: "ABORTED" },
+                    { time: "17:00", name: "EXHORDER" },
+                    { time: "17:30", name: "THE HALO EFFECT" },
+                    { time: "18:00", name: "ATTILA" },
+                    { time: "18:30", name: "IMMOLATION" },
+                    { time: "19:00", name: "UNLEASHED" },
+                    { time: "19:30", name: "HATEBREED" },
+                    { time: "20:00", name: "KATAKLYSM" },
+                    { time: "20:30", name: "SUFFOCATION" },
+                    { time: "21:00", name: "CARNIVOOL" },
+                    { time: "21:30", name: "SLIPKNOT" },
+                    { time: "22:00", name: "THE HALO EFFECT" },
+                    { time: "22:30", name: "DARK FUNERAL" }
+                ],
+                "KAL": [
+                    { time: "18:30", name: "BLOOD PACT" },
+                    { time: "20:10", name: "MORBID AXE" },
+                    { time: "21:00", name: "THE CURE" },
+                    { time: "22:00", name: "WAULNTOORR" },
+                    { time: "00:00", name: "BLACKOUT" },
+                    { time: "01:00", name: "BRUTAL ASSAULT DJ SET" }
+                ]
+            }
+        };
+
+        // Mapping of stage names to emojis
+        const stageEmojis = {
+            "Obscure": "🌑",
+            "Sea Shepherd": "�",
+            "Marshall": "🎸",
+            "Octagon": "🪈",
+            "KAL": "🎤"
+        };
+
+        // Array to store selected bands
+        let selectedBands = JSON.parse(localStorage.getItem('selectedBands')) || [];
+
+        const timetableContainer = document.getElementById('timetable-container');
+        const showMyTimetableBtn = document.getElementById('showMyTimetableBtn');
+        const clearSelectionsBtn = document.getElementById('clearSelectionsBtn');
+        const myTimetableModal = document.getElementById('myTimetableModal');
+        const closeButton = document.querySelector('.close-button');
+        const personalizedTimetableContent = document.getElementById('personalizedTimetableContent');
+
+        // Function to generate the full timetable HTML with checkboxes
+        function generateTimetable() {
+            let html = '';
+            for (const day in timetableData) {
+                html += `
+                    <div class="mb-8 p-4 rounded-lg bg-gray-700 shadow-md">
+                        <h2 class="day-header text-2xl p-3 mb-4 rounded-md text-center">${day}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                `;
+                const stages = timetableData[day];
+                for (const stage in stages) {
+                    const emoji = stageEmojis[stage] || ''; // Get emoji, default to empty string if not found
+                    html += `
+                            <div class="bg-gray-800 rounded-lg shadow-inner overflow-hidden">
+                                <h3 class="stage-header text-xl p-3 text-center rounded-t-lg">
+                                    <span class="stage-emoji">${emoji}</span>${stage}
+                                </h3>
+                                <ul class="divide-y divide-gray-700">
+                    `;
+                    stages[stage].forEach(band => {
+                        const bandId = `${day}-${stage}-${band.time}-${band.name.replace(/\s/g, '-')}`;
+                        const isSelected = selectedBands.includes(bandId);
+                        html += `
+                                    <li class="band-item p-3 flex items-center justify-between ${isSelected ? 'selected-band' : ''}">
+                                        <div class="flex items-center">
+                                            <input type="checkbox" id="${bandId}" class="mr-3 h-5 w-5 text-red-600 rounded focus:ring-red-500" ${isSelected ? 'checked' : ''}
+                                                data-day="${day}" data-stage="${stage}" data-time="${band.time}" data-name="${band.name}">
+                                            <label for="${bandId}" class="band-name text-base cursor-pointer">${band.name}</label>
+                                        </div>
+                                        <span class="time text-sm">${band.time}</span>
+                                    </li>
+                        `;
+                    });
+                    html += `
+                                </ul>
+                            </div>
+                    `;
+                }
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+            timetableContainer.innerHTML = html;
+            addCheckboxListeners(); // Attach listeners after HTML is rendered
+        }
+
+        // Function to add event listeners to checkboxes
+        function addCheckboxListeners() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', (event) => {
+                    const { day, stage, time, name } = event.target.dataset;
+                    const bandId = `${day}-${stage}-${time}-${name.replace(/\s/g, '-')}`;
+                    if (event.target.checked) {
+                        if (!selectedBands.includes(bandId)) {
+                            selectedBands.push(bandId);
+                        }
+                        event.target.closest('.band-item').classList.add('selected-band');
+                    } else {
+                        selectedBands = selectedBands.filter(id => id !== bandId);
+                        event.target.closest('.band-item').classList.remove('selected-band');
+                    }
+                    localStorage.setItem('selectedBands', JSON.stringify(selectedBands));
+                });
+            });
+        }
+
+        // Function to generate and display the personalized timetable
+        function generatePersonalizedTimetable() {
+            let personalizedHtml = '';
+            const mySchedule = {}; // To store bands by day and time for conflict checking
+
+            // Populate mySchedule with selected bands
+            selectedBands.forEach(bandId => {
+                // Extract original data from the timetableData structure
+                for (const day in timetableData) {
+                    for (const stage in timetableData[day]) {
+                        timetableData[day][stage].forEach(band => {
+                            const currentBandId = `${day}-${stage}-${band.time}-${band.name.replace(/\s/g, '-')}`;
+                            if (currentBandId === bandId) {
+                                if (!mySchedule[day]) {
+                                    mySchedule[day] = {};
+                                }
+                                if (!mySchedule[day][band.time]) {
+                                    mySchedule[day][band.time] = [];
+                                }
+                                mySchedule[day][band.time].push({
+                                    name: band.name,
+                                    stage: stage
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+
+            // Sort days
+            const sortedDays = Object.keys(mySchedule).sort((a, b) => {
+                const dayA = parseInt(a.replace('WED ', '').replace('THU ', '').replace('FRI ', '').replace('SAT ', ''));
+                const dayB = parseInt(b.replace('WED ', '').replace('THU ', '').replace('FRI ', '').replace('SAT ', ''));
+                return dayA - dayB;
+            });
+
+            if (sortedDays.length === 0) {
+                personalizedHtml = `<p class="text-center text-gray-400">You haven't selected any bands yet. Go back and pick some!</p>`;
+            } else {
+                sortedDays.forEach(day => {
+                    personalizedHtml += `
+                        <div class="mb-6 p-4 rounded-lg bg-gray-600 shadow-md">
+                            <h3 class="day-header text-xl p-2 mb-3 rounded-md text-center">${day}</h3>
+                            <ul class="divide-y divide-gray-500">
+                    `;
+                    // Sort times for each day
+                    const sortedTimes = Object.keys(mySchedule[day]).sort();
+                    sortedTimes.forEach(time => {
+                        const bandsAtTime = mySchedule[day][time];
+                        const isConflict = bandsAtTime.length > 1; // Conflict if more than one band at the same time
+
+                        bandsAtTime.forEach(band => {
+                            const emoji = stageEmojis[band.stage] || '';
+                            personalizedHtml += `
+                                <li class="p-2 flex justify-between items-center ${isConflict ? 'conflict' : ''} rounded-md my-1">
+                                    <span class="time text-base">${time}</span>
+                                    <span class="band-name text-lg">${band.name}</span>
+                                    <span class="text-gray-300 text-sm"><span class="stage-emoji">${emoji}</span>${band.stage}</span>
+                                </li>
+                            `;
+                        });
+                    });
+                    personalizedHtml += `
+                            </ul>
+                        </div>
+                    `;
+                });
+            }
+
+            personalizedTimetableContent.innerHTML = personalizedHtml;
+            myTimetableModal.style.display = 'flex'; // Show the modal
+        }
+
+        // Event listeners for buttons and modal
+        showMyTimetableBtn.addEventListener('click', generatePersonalizedTimetable);
+        clearSelectionsBtn.addEventListener('click', () => {
+            selectedBands = [];
+            localStorage.removeItem('selectedBands');
+            generateTimetable(); // Re-render the main timetable to clear checkboxes
+        });
+
+        closeButton.addEventListener('click', () => {
+            myTimetableModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === myTimetableModal) {
+                myTimetableModal.style.display = 'none';
+            }
+        });
+
+        // Generate timetable on page load
+        window.onload = generateTimetable;
+    </script>
+</body>
+</html>
+�
