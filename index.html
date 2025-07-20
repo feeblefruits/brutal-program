@@ -117,17 +117,14 @@
         </div>
 
         <main id="timetable-container" class="p-6">
-            <!-- Timetable content will be generated here by JavaScript -->
         </main>
     </div>
 
-    <!-- Personalized Timetable Modal -->
     <div id="myTimetableModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h2 class="text-3xl font-bold text-red-500 mb-4 text-center">My Personalized Timetable</h2>
             <div id="personalizedTimetableContent" class="text-gray-200">
-                <!-- Personalized timetable will be loaded here -->
             </div>
             <p class="text-sm text-gray-400 mt-4 text-center">Bands highlighted in red indicate potential time conflicts.</p>
         </div>
@@ -138,294 +135,197 @@
         const timetableData = {
             "WED 6.8": {
                 "Obscure": [
-                    { time: "14:40", name: "MARKED AS AN ENEMY" },
-                    { time: "15:30", name: "FAUST" },
-                    { time: "16:20", name: "BLACKOUT IN HELL" },
-                    { time: "17:10", name: "CUTTHROAT FLESH" },
-                    { time: "18:00", name: "FUNERAL" },
-                    { time: "19:10", name: "BLACK CYN" },
-                    { time: "20:10", name: "CARNIVORE A.D." },
-                    { time: "21:10", name: "HAVOK" },
-                    { time: "22:00", name: "WARM UP" },
-                    { time: "22:50", name: "WARM UP" },
-                    { time: "23:40", name: "WARM UP" }
+                    { time: "14:30", name: "Sleepy Time Gorilla Museum" },
+                    { time: "15:30", name: "3 Inches of Blood" },
+                    { time: "16:40", name: "Rivers of Nihil" },
+                    { time: "17:50", name: "Fleshgod Apocalypse" },
+                    { time: "19:05", name: "Sign" },
+                    { time: "20:25", name: "Ill Nino" },
+                    { time: "21:55", name: "Between the Buried and Me" },
+                    { time: "23:25", name: "Oranssi Pazuzu" },
+                    { time: "00:45", name: "Orange Goblin" },
+                    { time: "02:00", name: "Heriot" },
                 ],
-                "Sea Shepherd": [
-                    { time: "12:00", name: "BRUTALLY DECEASED" },
-                    { time: "12:35", name: "BLOOD RED THRONE" },
-                    { time: "13:10", name: "DARKEST HORIZON" },
-                    { time: "14:00", name: "CRYSTAL LAKE" },
-                    { time: "14:45", name: "IMPERIAL TRIUMPHANT" },
-                    { time: "15:35", name: "MOPL" },
-                    { time: "16:25", name: "DARK FUNERAL" },
-                    { time: "17:10", name: "THROWN" },
-                    { time: "18:00", name: "MISERY INDEX" },
-                    { time: "19:05", name: "STATIC-X" },
-                    { time: "20:00", name: "DYING FETUS" },
-                    { time: "21:00", name: "MEGADETH" },
-                    { time: "22:00", name: "RIVERS OF NIHIL" },
-                    { time: "22:50", name: "KERRY KING" },
-                    { time: "00:30", name: "ROTTING CHRIST" }
-                ],
-                "Marshall": [
-                    { time: "10:30", name: "MAMMOTH GRINDER" },
-                    { time: "11:05", name: "ZULU" },
-                    { time: "11:40", name: "GULCH" },
-                    { time: "12:20", name: "PSYCHOTIC WALTZ" },
-                    { time: "13:00", name: "CARCASS" },
-                    { time: "13:40", name: "HIGH PARASITE" },
-                    { time: "14:20", name: "MALEVOLENCE" },
-                    { time: "15:00", name: "NILE" },
-                    { time: "15:40", name: "GOJIRA" },
-                    { time: "16:45", name: "SUBLABAI KHAN TX" },
-                    { time: "17:35", name: "DECAPITATED" },
-                    { time: "18:25", name: "LANDMVRKS" },
-                    { time: "19:15", name: "LEPROUS" },
-                    { time: "20:05", name: "CULT OF LUNA" },
-                    { time: "21:50", name: "GOJIRA" },
-                    { time: "22:50", name: "MY DYING BRIDE" },
-                    { time: "00:30", name: "FEAR FACTORY" }
+                "Sea Shepherd / Marshall": [
+                    { time: "12:00", name: "Brutally Decesased" },
+                    { time: "12:35", name: "Blood Red Throne" },
+                    { time: "13:15", name: "Warbringer" },
+                    { time: "14:00", name: "Crystal Lake" },
+                    { time: "14:45", name: "Ne Obliviscaris" },
+                    { time: "15:35", name: "Dope" },
+                    { time: "16:20", name: "Skalmold" },
+                    { time: "17:10", name: "Thrown" },
+                    { time: "18:05", name: "Dark Angel" },
+                    { time: "19:05", name: "Static-X" },
+                    { time: "20:05", name: "Dying Fetus" },
+                    { time: "21:10", name: "Mastodon" },
+                    { time: "22:20", name: "Ministry" },
+                    { time: "23:30", name: "Kerry King" },
+                    { time: "00:35", name: "Rotting Christ" }
                 ],
                 "Octagon": [
-                    { time: "18:30", name: "FAUN FABLES" },
-                    { time: "19:20", name: "ANNA VON HAUSSWOLFF" },
-                    { time: "20:20", name: "NERA NERA" },
-                    { time: "21:20", name: "THE MERGING" },
-                    { time: "22:20", name: "TRASH BOAT" },
-                    { time: "23:20", name: "COMPUTERBOY SET" },
-                    { time: "00:20", name: "FAUNFABLES" }
+                    { time: "18:30", name: "Inter Arma" },
+                    { time: "19:45", name: "Frayle" },
+                    { time: "21:00", name: "Zemial" },
+                    { time: "22:30", name: "Ruim" },
                 ],
                 "KAL": [
-                    { time: "18:30", name: "FAUN FABLES" },
-                    { time: "19:20", name: "ANNA VON HAUSSWOLFF" },
-                    { time: "20:20", name: "NERA NERA" },
-                    { time: "21:20", name: "THE MERGING" },
-                    { time: "22:20", name: "TRASH BOAT" },
-                    { time: "23:20", name: "COMPUTERBOY SET" },
-                    { time: "00:20", name: "FAUNFABLES" }
+                    { time: "18:30", name: "Faun Fables" },
+                    { time: "20:00", name: "Andy The Doorbum" },
+                    { time: "21:30", name: "Mala Herba" },
+                    { time: "23:00", name: "Mirusi Mergina" },
+                    { time: "00:30", name: "Thrash Cobra" },
+                    { time: "1:30", name: "Computerboy DJ Set Feat Odious" },
                 ]
             },
             "THU 7.8": {
                  "Obscure": [
-                    { time: "14:30", name: "SLEEPYTIME GORILLA MUSEUM" },
-                    { time: "15:20", name: "CONVERGE" },
-                    { time: "16:10", name: "TRIBULATION" },
-                    { time: "17:00", name: "RIVERS OF NIHIL" },
-                    { time: "17:50", name: "BLOOD RED THRONE" },
-                    { time: "18:40", name: "IMPERIAL TRIUMPHANT" },
-                    { time: "19:30", name: "MISERY INDEX" },
-                    { time: "20:20", name: "DYING FETUS" },
-                    { time: "21:10", name: "MEGADETH" },
-                    { time: "22:00", name: "RIVERS OF NIHIL" },
-                    { time: "22:50", name: "KERRY KING" },
-                    { time: "00:30", name: "ROTTING CHRIST" }
+                    { time: "14:30", name: "Zeke" },
+                    { time: "15:35", name: "Slow Crush" },
+                    { time: "16:40", name: "Rezn" },
+                    { time: "17:55", name: "August Burns Red" },
+                    { time: "19:20", name: "Between The Buried And Me" },
+                    { time: "20:40", name: "Drowning Pool" },
+                    { time: "22:10", name: "The Kovenant" },
+                    { time: "23:40", name: "Fit for a King" },
+                    { time: "00:55", name: "Absu" },
+                    { time: "02:10", name: "Furia" },
                 ],
-                "Sea Shepherd": [
-                    { time: "14:30", name: "ZEKE" },
-                    { time: "15:10", name: "WORMROT" },
-                    { time: "15:50", name: "REZN" },
-                    { time: "16:30", name: "BURST BEHIND RED" },
-                    { time: "17:10", name: "BETWEEN THE BURIED & ME" },
-                    { time: "17:50", name: "GATECREEPER" },
-                    { time: "18:30", name: "THE COVENANT" },
-                    { time: "19:10", name: "FIT FOR A KING" },
-                    { time: "19:50", name: "BEHEMOTH" },
-                    { time: "20:30", name: "FU MANCHU" },
-                    { time: "21:10", name: "CROWBAR" },
-                    { time: "21:50", name: "CULT OF LUNA" },
-                    { time: "22:30", name: "MY DYING BRIDE" },
-                    { time: "00:30", name: "FEAR FACTORY" }
-                ],
-                "Marshall": [
-                    { time: "10:30", name: "GRAPHIC NATURE" },
-                    { time: "11:05", name: "ANGELMAKER" },
-                    { time: "11:40", name: "SVALBARD" },
-                    { time: "12:20", name: "WITHIN DESTRUCTION" },
-                    { time: "13:00", name: "ABORTED" },
-                    { time: "13:50", name: "MNEMIC" },
-                    { time: "14:35", name: "THE HALO EFFECT" },
-                    { time: "15:20", name: "COUNTERPARTS" },
-                    { time: "16:05", name: "IMMOLATION" },
-                    { time: "16:55", name: "PIG DESTROYER" },
-                    { time: "17:45", name: "OVERKILL" },
-                    { time: "18:45", name: "OVERKILL" },
-                    { time: "19:40", name: "OVERKILL" },
-                    { time: "20:45", name: "OVERKILL" },
-                    { time: "22:00", name: "PARADISE LOST" },
-                    { time: "23:00", name: "DARK FUNERAL" },
-                    { time: "00:30", name: "CULT OF LUNA" }
+                "Sea Shepherd / Marshall": [
+                    { time: "10:30", name: "Mammoth Grinder" },
+                    { time: "11:05", name: "Fulci" },
+                    { time: "11:40", name: "Gutslit" },
+                    { time: "12:20", name: "Psycroptic" },
+                    { time: "13:00", name: "Car Bomb" },
+                    { time: "13:40", name: "High Parasite" },
+                    { time: "14:20", name: "Green Lung" },
+                    { time: "15:05", name: "Nile" },
+                    { time: "15:55", name: "Gutalax" },
+                    { time: "16:45", name: "Kublai Khan TX" },
+                    { time: "17:35", name: "Suffocation" },
+                    { time: "18:35", name: "Landmvrks" },
+                    { time: "19:40", name: "Leprous" },
+                    { time: "20:45", name: "Obituary" },
+                    { time: "21:50", name: "Gojira" },
+                    { time: "23:15", name: "Blood Fire Death" },
+                    { time: "00:30", name: "Fear Factory" }
                 ],
                 "Octagon": [
-                    { time: "19:00", name: "FAUN FABLES" },
-                    { time: "19:50", name: "ANNA VON HAUSSWOLFF" },
-                    { time: "20:50", name: "NERA NERA" },
-                    { time: "21:50", name: "THE MERGING" },
-                    { time: "22:50", name: "TRASH BOAT" },
-                    { time: "23:50", name: "COMPUTERBOY SET" },
-                    { time: "00:50", name: "FAUNFABLES" }
+                    { time: "18:30", name: "Crypt Sermon" },
+                    { time: "19:45", name: "XIII. Stoleti" },
+                    { time: "21:00", name: "Wayfarer" },
+                    { time: "22:30", name: "Patriarchy" },
                 ],
                 "KAL": [
-                    { time: "18:30", name: "DUNKELBONT" },
-                    { time: "20:00", name: "MAI MAI MAI" },
-                    { time: "21:00", name: "MAI MAI MAI" },
-                    { time: "22:00", name: "MAI MAI MAI" },
-                    { time: "23:00", name: "MAI MAI MAI" },
-                    { time: "00:00", name: "MAI MAI MAI" },
-                    { time: "01:00", name: "MAI MAI MAI" },
-                    { time: "01:30", name: "EVIL DUST DJ SET" }
+                    { time: "18:30", name: "Dunkelbot" },
+                    { time: "20:00", name: "Möbius" },
+                    { time: "21:30", name: "Mai Mai Mai" },
+                    { time: "23:00", name: "Double Darkness" },
+                    { time: "00:00", name: "DJ Pavel Zelinka" },
+                    { time: "01:30", name: "Evil Dust DJ Set" },
                 ]
             },
             "FRI 8.8": {
                 "Obscure": [
-                    { time: "14:30", name: "MONOLORD" },
-                    { time: "15:20", name: "CATTLE DECAPITATION" },
-                    { time: "16:10", name: "MANTAR" },
-                    { time: "17:00", name: "VADER" },
-                    { time: "17:50", name: "THE BLACK DAHLIA MURDER" },
-                    { time: "18:40", name: "DYING FETUS" },
-                    { time: "19:30", name: "MEGADETH" },
-                    { time: "20:20", name: "RIVERS OF NIHIL" },
-                    { time: "21:10", name: "KERRY KING" },
-                    { time: "22:00", name: "ROTTING CHRIST" },
-                    { time: "22:50", name: "THE HALO EFFECT" },
-                    { time: "00:30", name: "DARK FUNERAL" }
+                    { time: "14:30", name: "Monolord" },
+                    { time: "15:35", name: "Sylvaine" },
+                    { time: "16:40", name: "Mantar" },
+                    { time: "17:55", name: "Pelican" },
+                    { time: "19:10", name: "Hällas" },
+                    { time: "20:30", name: "Obscure Sphinx" },
+                    { time: "21:55", name: "Gaerea" },
+                    { time: "23:25", name: "The Browning" },
+                    { time: "00:35", name: "Tsjuder" },
+                    { time: "01:50", name: "Hellripper" },
                 ],
-                "Sea Shepherd": [
-                    { time: "14:30", name: "THE CROWN" },
-                    { time: "15:10", name: "THE HALO EFFECT" },
-                    { time: "15:50", name: "ABORTED" },
-                    { time: "16:30", name: "MNEMIC" },
-                    { time: "17:10", name: "COUNTERPARTS" },
-                    { time: "17:50", name: "IMMOLATION" },
-                    { time: "18:30", name: "PIG DESTROYER" },
-                    { time: "19:10", name: "OVERKILL" },
-                    { time: "19:50", name: "OVERKILL" },
-                    { time: "20:30", name: "OVERKILL" },
-                    { time: "21:10", name: "OVERKILL" },
-                    { time: "21:50", name: "PARADISE LOST" },
-                    { time: "22:30", name: "DARK FUNERAL" },
-                    { time: "00:30", name: "CULT OF LUNA" }
-                ],
-                "Marshall": [
-                    { time: "10:30", name: "GRAPHIC NATURE" },
-                    { time: "11:05", name: "ANGELMAKER" },
-                    { time: "11:40", name: "SVALBARD" },
-                    { time: "12:20", name: "WITHIN DESTRUCTION" },
-                    { time: "13:00", name: "ABORTED" },
-                    { time: "13:50", name: "MNEMIC" },
-                    { time: "14:35", name: "THE HALO EFFECT" },
-                    { time: "15:20", name: "COUNTERPARTS" },
-                    { time: "16:05", name: "IMMOLATION" },
-                    { time: "16:55", name: "PIG DESTROYER" },
-                    { time: "17:45", name: "OVERKILL" },
-                    { time: "18:45", name: "OVERKILL" },
-                    { time: "19:40", name: "OVERKILL" },
-                    { time: "20:45", name: "OVERKILL" },
-                    { time: "22:00", name: "PARADISE LOST" },
-                    { time: "23:00", name: "DARK FUNERAL" },
-                    { time: "00:30", name: "CULT OF LUNA" }
+                "Sea Shepherd / Marshall": [
+                    { time: "10:30", name: "Graphic Nature" },
+                    { time: "11:05", name: "Angelmaker" },
+                    { time: "11:45", name: "Pyrexia" },
+                    { time: "12:25", name: "Within Destruction" },
+                    { time: "13:05", name: "Avulsed" },
+                    { time: "13:50", name: "Mnemic" },
+                    { time: "14:35", name: "Prong" },
+                    { time: "15:20", name: "Pig Destroyer" },
+                    { time: "16:05", name: "TBA" },
+                    { time: "16:55", name: "Counterparts" },
+                    { time: "17:50", name: "Asphyx" },
+                    { time: "18:45", name: "Overkill" },
+                    { time: "19:45", name: "Grave" },
+                    { time: "20:45", name: "Mayem" },
+                    { time: "22:00", name: "Paradise Lost" },
+                    { time: "23:05", name: "Dimmu Borgir" },
+                    { time: "00:30", name: "Cult of Luna" }
+
                 ],
                 "Octagon": [
-                    { time: "18:30", name: "LIVE THE HORROR" },
-                    { time: "19:40", name: "MALIGNANCY" },
-                    { time: "21:00", name: "PYREXIA" },
-                    { time: "22:30", name: "REPLIGANT" }
+                    { time: "18:30", name: "Five Hierophant" },
+                    { time: "19:45", name: "Malignancy" },
+                    { time: "21:00", name: "Pyrrhon" },
+                    { time: "22:30", name: "Replicant" }
                 ],
                 "KAL": [
-                    { time: "18:30", name: "LUGOLA" },
-                    { time: "20:10", name: "MORBID AXE" },
-                    { time: "21:00", name: "HACKEDEPICCIOTTO" },
-                    { time: "22:00", name: "VULVODYNIA" },
-                    { time: "00:00", name: "BLACKOUT" },
-                    { time: "01:00", name: "BHPL" },
-                    { time: "02:00", name: "MANUS DJ SET" }
+                    { time: "18:30", name: "Lugola" },
+                    { time: "20:10", name: "Sweeps 04" },
+                    { time: "21:00", name: "Hackedpicciotto" },
+                    { time: "22:00", name: "Vyšehrad" },
+                    { time: "22:00", name: "Silkskin" },
+                    { time: "22:00", name: "BHPL" },
+                    { time: "22:00", name: "M4NUS DJ Set" },
                 ]
             },
             "SAT 9.8": {
                 "Obscure": [
-                    { time: "14:30", name: "HIDEOUS DIVINITY" },
-                    { time: "15:20", name: "VOMITORY" },
-                    { time: "16:10", name: "KING WOMAN" },
-                    { time: "17:00", name: "CATTLE DECAPITATION" },
-                    { time: "17:50", name: "VADER" },
-                    { time: "18:40", name: "DYING FETUS" },
-                    { time: "19:30", name: "MEGADETH" },
-                    { time: "20:20", name: "RIVERS OF NIHIL" },
-                    { time: "21:10", name: "KERRY KING" },
-                    { time: "22:00", name: "ROTTING CHRIST" },
-                    { time: "22:50", name: "THE HALO EFFECT" },
-                    { time: "00:30", name: "DARK FUNERAL" }
+                    { time: "14:30", name: "Hideos Divinity" },
+                    { time: "15:30", name: "Protector" },
+                    { time: "16:35", name: "King Woman" },
+                    { time: "17:45", name: "Malevont Creation" },
+                    { time: "19:05", name: "Envy" },
+                    { time: "20:25", name: "Arthur Brown" },
+                    { time: "21:50", name: "Defeated Sanity" },
+                    { time: "23:20", name: "Bohren & Der Club of Gore" },
+                    { time: "00:45", name: "Gost" },
+                    { time: "02:00", name: "Hellbutcher" },
                 ],
-                "Sea Shepherd": [
-                    { time: "14:30", name: "THE CROWN" },
-                    { time: "15:10", name: "THE HALO EFFECT" },
-                    { time: "15:50", name: "ABORTED" },
-                    { time: "16:30", name: "MNEMIC" },
-                    { time: "17:10", name: "COUNTERPARTS" },
-                    { time: "17:50", name: "IMMOLATION" },
-                    { time: "18:30", name: "PIG DESTROYER" },
-                    { time: "19:10", name: "OVERKILL" },
-                    { time: "19:50", name: "OVERKILL" },
-                    { time: "20:30", name: "OVERKILL" },
-                    { time: "21:10", name: "OVERKILL" },
-                    { time: "21:50", name: "PARADISE LOST" },
-                    { time: "22:30", name: "DARK FUNERAL" },
-                    { time: "00:30", name: "CULT OF LUNA" }
-                ],
-                "Marshall": [
-                    { time: "10:30", name: "BESNA" },
-                    { time: "11:05", name: "CRYPTA" },
-                    { time: "11:40", name: "SVALBARD" },
-                    { time: "12:25", name: "TO THE GRAVE" },
-                    { time: "13:00", name: "ABORTED" },
-                    { time: "13:50", name: "EXHORDER" },
-                    { time: "14:35", name: "THE HALO EFFECT" },
-                    { time: "15:20", name: "ATTILA" },
-                    { time: "16:05", name: "IMMOLATION" },
-                    { time: "16:55", name: "UNLEASHED" },
-                    { time: "17:45", name: "HATEBREED" },
-                    { time: "18:45", name: "KATAKLYSM" },
-                    { time: "19:40", name: "SUFFOCATION" },
-                    { time: "20:45", name: "CARNIVOOL" },
-                    { time: "22:00", name: "SLIPKNOT" },
-                    { time: "23:00", name: "THE HALO EFFECT" },
-                    { time: "00:30", name: "DARK FUNERAL" }
+                "Sea Shepherd / Marshall": [
+                    { time: "10:30", name: "Besna" },
+                    { time: "11:05", name: "Crypta" },
+                    { time: "11:45", name: "Ryker's" },
+                    { time: "12:25", name: "To The Grave" },
+                    { time: "13:05", name: "Benighted" },
+                    { time: "13:50", name: "Exhorder" },
+                    { time: "14:35", name: "Hanabie." },
+                    { time: "15:20", name: "Attila" },
+                    { time: "16:05", name: "Brujeria" },
+                    { time: "16:55", name: "Unleashed" },
+                    { time: "17:50", name: "Harakiri for the Sky" },
+                    { time: "18:45", name: "Kataklysm" },
+                    { time: "19:50", name: "Agnostic Front" },
+                    { time: "21:00", name: "Karnivool" },
+                    { time: "22:10", name: "Opeth" },
+                    { time: "23:30", name: "The Halo Effect" },
+                    { time: "00:35", name: "Dark Funeral" }
                 ],
                 "Octagon": [
-                    { time: "14:30", name: "BESNA" },
-                    { time: "15:00", name: "CRYPTA" },
-                    { time: "15:30", name: "SVALBARD" },
-                    { time: "16:00", name: "TO THE GRAVE" },
-                    { time: "16:30", name: "ABORTED" },
-                    { time: "17:00", name: "EXHORDER" },
-                    { time: "17:30", name: "THE HALO EFFECT" },
-                    { time: "18:00", name: "ATTILA" },
-                    { time: "18:30", name: "IMMOLATION" },
-                    { time: "19:00", name: "UNLEASHED" },
-                    { time: "19:30", name: "HATEBREED" },
-                    { time: "20:00", name: "KATAKLYSM" },
-                    { time: "20:30", name: "SUFFOCATION" },
-                    { time: "21:00", name: "CARNIVOOL" },
-                    { time: "21:30", name: "SLIPKNOT" },
-                    { time: "22:00", name: "THE HALO EFFECT" },
-                    { time: "22:30", name: "DARK FUNERAL" }
+                    { time: "18:30", name: "Gadget" },
+                    { time: "19:45", name: "Klidas" },
+                    { time: "21:00", name: "Aluk Todolo" },
+                    { time: "22:30", name: "Priest" }
                 ],
                 "KAL": [
-                    { time: "18:30", name: "BLOOD PACT" },
-                    { time: "20:10", name: "MORBID AXE" },
-                    { time: "21:00", name: "THE CURE" },
-                    { time: "22:00", name: "WAULNTOORR" },
-                    { time: "00:00", name: "BLACKOUT" },
-                    { time: "01:00", name: "BRUTAL ASSAULT DJ SET" }
+                    { time: "18:30", name: "Blood Pact" },
+                    { time: "19:45", name: "Moaan Exis" },
+                    { time: "21:00", name: "The Cost" },
+                    { time: "22:00", name: "Traumatorr" },
+                    { time: "23:20", name: "Operant" },
+                    { time: "00:30", name: "Brut Raptor DJ Set" }
                 ]
             }
         };
 
-        // Mapping of stage names to emojis
         const stageEmojis = {
             "Obscure": "🌑",
-            "Sea Shepherd": "🌊",
-            "Marshall": "🎸",
+            "Sea Shepherd / Marshall": "🌊",
             "Octagon": "🪈",
             "KAL": "🎤"
         };
@@ -451,7 +351,7 @@
                 `;
                 const stages = timetableData[day];
                 for (const stage in stages) {
-                    const emoji = stageEmojis[stage] || ''; // Get emoji, default to empty string if not found
+                    const emoji = stageEmojis[stage] || ''; 
                     html += `
                             <div class="bg-gray-800 rounded-lg shadow-inner overflow-hidden">
                                 <h3 class="stage-header text-xl p-3 text-center rounded-t-lg">
@@ -484,10 +384,9 @@
                 `;
             }
             timetableContainer.innerHTML = html;
-            addCheckboxListeners(); // Attach listeners after HTML is rendered
+            addCheckboxListeners(); 
         }
 
-        // Function to add event listeners to checkboxes
         function addCheckboxListeners() {
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 checkbox.addEventListener('change', (event) => {
@@ -507,14 +406,11 @@
             });
         }
 
-        // Function to generate and display the personalized timetable
         function generatePersonalizedTimetable() {
             let personalizedHtml = '';
-            const mySchedule = {}; // To store bands by day and time for conflict checking
+            const mySchedule = {}; 
 
-            // Populate mySchedule with selected bands
             selectedBands.forEach(bandId => {
-                // Extract original data from the timetableData structure
                 for (const day in timetableData) {
                     for (const stage in timetableData[day]) {
                         timetableData[day][stage].forEach(band => {
@@ -536,7 +432,6 @@
                 }
             });
 
-            // Sort days
             const sortedDays = Object.keys(mySchedule).sort((a, b) => {
                 const dayA = parseInt(a.replace('WED ', '').replace('THU ', '').replace('FRI ', '').replace('SAT ', ''));
                 const dayB = parseInt(b.replace('WED ', '').replace('THU ', '').replace('FRI ', '').replace('SAT ', ''));
@@ -552,11 +447,10 @@
                             <h3 class="day-header text-xl p-2 mb-3 rounded-md text-center">${day}</h3>
                             <ul class="divide-y divide-gray-500">
                     `;
-                    // Sort times for each day
                     const sortedTimes = Object.keys(mySchedule[day]).sort();
                     sortedTimes.forEach(time => {
                         const bandsAtTime = mySchedule[day][time];
-                        const isConflict = bandsAtTime.length > 1; // Conflict if more than one band at the same time
+                        const isConflict = bandsAtTime.length > 1; 
 
                         bandsAtTime.forEach(band => {
                             const emoji = stageEmojis[band.stage] || '';
