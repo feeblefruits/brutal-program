@@ -94,6 +94,23 @@
         .stage-emoji {
             margin-right: 8px;
         }
+        .personalized-band-item {
+            display: grid;
+            grid-template-columns: 80px 1fr auto; /* Time, Band Name, Stage */
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+        .personalized-band-item .band-name {
+            text-align: left; /* Center the band name */
+            flex-grow: 1; /* Allow it to take available space */
+        }
+        .personalized-band-item .time {
+            text-align: left;
+        }
+        .personalized-band-item .stage-info {
+            text-align: right;
+        }
     </style>
 </head>
 <body class="p-4">
@@ -324,10 +341,10 @@
         };
 
         const stageEmojis = {
-            "Obscure": "🌑",
+            "Obscure": "🌀",
             "Sea Shepherd / Marshall": "🌊",
-            "Octagon": "🪈",
-            "KAL": "🎤"
+            "Octagon": "🎱",
+            "KAL": "🎧"
         };
 
         // Array to store selected bands
@@ -406,11 +423,24 @@
             });
         }
 
+        // Function to convert "HH:MM" time to minutes for sorting
+        function timeToMinutes(timeStr) {
+            let [hours, minutes] = timeStr.split(':').map(Number);
+            // If hours are between 0 and 4 (inclusive), add 24 to treat them as "next day" for sorting
+            if (hours >= 0 && hours <= 4) { // Assuming no actual shows start before 5 AM on a given day
+                hours += 24;
+            }
+            return hours * 60 + minutes;
+        }
+
+        // Function to generate and display the personalized timetable
         function generatePersonalizedTimetable() {
             let personalizedHtml = '';
-            const mySchedule = {}; 
+            const mySchedule = {}; // To store bands by day and time for conflict checking
 
+            // Populate mySchedule with selected bands
             selectedBands.forEach(bandId => {
+                // Extract original data from the timetableData structure
                 for (const day in timetableData) {
                     for (const stage in timetableData[day]) {
                         timetableData[day][stage].forEach(band => {
@@ -432,6 +462,7 @@
                 }
             });
 
+            // Sort days
             const sortedDays = Object.keys(mySchedule).sort((a, b) => {
                 const dayA = parseInt(a.replace('WED ', '').replace('THU ', '').replace('FRI ', '').replace('SAT ', ''));
                 const dayB = parseInt(b.replace('WED ', '').replace('THU ', '').replace('FRI ', '').replace('SAT ', ''));
@@ -447,18 +478,20 @@
                             <h3 class="day-header text-xl p-2 mb-3 rounded-md text-center">${day}</h3>
                             <ul class="divide-y divide-gray-500">
                     `;
-                    const sortedTimes = Object.keys(mySchedule[day]).sort();
+                    // Sort times for each day using the timeToMinutes helper
+                    const sortedTimes = Object.keys(mySchedule[day]).sort((a, b) => timeToMinutes(a) - timeToMinutes(b));
+
                     sortedTimes.forEach(time => {
                         const bandsAtTime = mySchedule[day][time];
-                        const isConflict = bandsAtTime.length > 1; 
+                        const isConflict = bandsAtTime.length > 1; // Conflict if more than one band at the same time
 
                         bandsAtTime.forEach(band => {
                             const emoji = stageEmojis[band.stage] || '';
                             personalizedHtml += `
-                                <li class="p-2 flex justify-between items-center ${isConflict ? 'conflict' : ''} rounded-md my-1">
+                                <li class="personalized-band-item ${isConflict ? 'conflict' : ''} rounded-md my-1">
                                     <span class="time text-base">${time}</span>
                                     <span class="band-name text-lg">${band.name}</span>
-                                    <span class="text-gray-300 text-sm"><span class="stage-emoji">${emoji}</span>${band.stage}</span>
+                                    <span class="text-gray-300 text-sm stage-info"><span class="stage-emoji">${emoji}</span>${band.stage}</span>
                                 </li>
                             `;
                         });
